@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ChakshuFramework.iml" filepath="$PROJECT_DIR$/.idea/ChakshuFramework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ChakshuFrameworks.iml" filepath="$PROJECT_DIR$/.idea/ChakshuFrameworks.iml" />
     </modules>
   </component>
 </project>

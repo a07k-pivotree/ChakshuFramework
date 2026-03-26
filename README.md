@@ -4,3 +4,5 @@ An amazing framework
 ## PlayWright POM Framework ##
 ### Features ###
 - Page Object Model (POM) design pattern for better code organization and maintainability.
+
+#changes from aditya
