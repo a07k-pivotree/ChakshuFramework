@@ -16,3 +16,7 @@ An amazing framework
 1. Clone the repository:
    ```bash
    git clone ChakshuFramework
+## 🛠 Run
+2. Run the test:
+   ```bash
+   pytest tests/test_login.py --headed
