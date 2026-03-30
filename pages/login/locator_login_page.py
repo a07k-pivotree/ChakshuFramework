@@ -1,30 +1,16 @@
 # This file contain path of elements
 
 class LoginLocators:
-    @staticmethod
-    def sign_in_link():
-        return "//nav//span[text()='Sign In']"
-
-    @staticmethod
-    def username_dropdown():
-        return "div#username"
+    sign_in_link = "//nav//span[text()='Sign In']"
+    username_dropdown = "div#username"
+    password_dropdown = "div#password"
+    login_button = "#login-btn"
+    logout_link = "//nav//span[text()='Logout']"
 
     @staticmethod
     def username_option(username_text):
-        return f"div:has-text('{username_text}')"
-
-    @staticmethod
-    def password_dropdown():
-        return "div#password"
+        return f"div:text-is('{username_text}')"
 
     @staticmethod
     def password_option(password_text):
-        return f"div:has-text('{password_text}')"
-
-    @staticmethod
-    def login_button():
-        return "#login-btn"
-
-    @staticmethod
-    def logout_link():
-        return "//nav//span[text()='Logout']"
+        return f"div:text-is('{password_text}')"
