@@ -1,26 +1,49 @@
-# This file contains path of elements for the Favourites section
+# This file contains all locators for the Favourites section
 
 class FavouritesLocators:
-    # Header navigation link
+
+    # ── Navigation ────────────────────────────────────────────────────────────
     favourites_nav_link = "a#favourites"
 
-    # Heart icon button on each product card (unfilled = not yet favourited)
-    heart_icon_button = ".shelf-item .MuiIconButton-root"
+    # ── Favourites page validation ────────────────────────────────────────────
+    # Shown when 0 products are in favourites
+    zero_products_text = "small.products-found h3"
 
-    # Specific product's heart icon by SKU (data-sku attribute on shelf-item)
+    # All product cards currently shown on the favourites page
+    all_fav_product_cards = "div.shelf-item"
+
+    # All product titles currently shown on the favourites page
+    all_fav_product_titles = ".shelf-item__title"
+
+    # ── Product shelf (main listing page) ─────────────────────────────────────
+    # Heart icon that is NOT yet clicked (unfilled) — targets by SKU
     @staticmethod
-    def heart_icon_by_sku(sku):
-        return f"div.shelf-item[data-sku='{sku}'] .MuiIconButton-root"
+    def unfilled_heart_by_sku(sku):
+        return f"div.shelf-item[data-sku='{sku}'] button.MuiIconButton-root"
 
-    # Product title on the main shelf
+    # Product card on the main listing page
     @staticmethod
-    def product_title_on_shelf(title):
-        return f".shelf-item__title:text-is('{title}')"
+    def product_card_by_sku(sku):
+        return f"div.shelf-item[data-sku='{sku}']"
 
-    # Product title inside the Favourites page
+    # Heart icon that IS already clicked (filled) — by SKU, used on fav page
     @staticmethod
-    def product_title_in_favourites(title):
-        return f".shelf-item__title:text-is('{title}')"
+    def filled_heart_by_sku(sku):
+        # Button WITH 'clicked' class = already favourited
+        return f"div.shelf-item[data-sku='{sku}'] button.MuiIconButton-root.clicked"
 
-    # All product titles inside the Favourites page (for counting/validation)
-    all_product_titles_in_favourites = ".shelf-item__title"
+    # "Add to cart" button for a specific product by SKU
+    @staticmethod
+    def add_to_cart_by_sku(sku):
+        return f"div.shelf-item[data-sku='{sku}'] .shelf-item__buy-btn"
+
+    # ── Cart validation ───────────────────────────────────────────────────────
+    # A specific product title inside the cart sidebar
+    @staticmethod
+    def cart_item_title(title):
+        return f".shelf-item__details p.title:text-is('{title}')"
+
+    # Cart item quantity text for a product
+    @staticmethod
+    def cart_item_quantity(title):
+        return f".shelf-item__details:has(p.title:text-is('{title}')) p.desc"
