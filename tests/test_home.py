@@ -52,7 +52,7 @@ def test_remove_item_from_cart(logged_in_page,page):
 
     cart_items = home_page.get_cart_items()
     initial_count = cart_items.count()
-    assert initial_count == len(products), "Cart must have exactly 3 items"
+    assert initial_count == len(products), f"Cart must have exactly {len(products)} items"
 
     home_page.remove_itm_from_cart()
     a = page.locator('//div[@class="float-cart__header"]')

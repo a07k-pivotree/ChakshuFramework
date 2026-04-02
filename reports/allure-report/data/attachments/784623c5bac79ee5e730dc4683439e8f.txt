@@ -1,0 +1,30 @@
+[32mINFO    [0m chakshu_framework:conftest.py:36 ============================================================
+[32mINFO    [0m chakshu_framework:conftest.py:37 Test session started — module: test_favourites
+[32mINFO    [0m chakshu_framework:conftest.py:38 Base URL: https://bstackdemo.com/
+[32mINFO    [0m chakshu_framework:conftest.py:39 ============================================================
+[32mINFO    [0m chakshu_framework:conftest.py:56 >>> START: test_favourites_happy_path[chromium]
+[32mINFO    [0m chakshu_framework:favourites_page.py:18 Action: clicking Favourites nav link
+[32mINFO    [0m chakshu_framework:favourites_page.py:33 Check: looking for 0 products message on favourites page
+[32mINFO    [0m chakshu_framework:favourites_page.py:22 Action: navigating back to previous page
+[32mINFO    [0m chakshu_framework:favourites_page.py:25 Wait: page loaded, waiting for first product card to be visible
+[32mINFO    [0m chakshu_framework:favourites_page.py:51 Action: adding product to favourites — SKU: infocardiphone11Pro.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:68 Attempt 1: clicking heart — SKU: infocardiphone11Pro.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:66 Success: product hearted on attempt 2 — SKU: infocardiphone11Pro.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:51 Action: adding product to favourites — SKU: Note20-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:68 Attempt 1: clicking heart — SKU: Note20-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:66 Success: product hearted on attempt 2 — SKU: Note20-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:51 Action: adding product to favourites — SKU: Note20Ultra-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:68 Attempt 1: clicking heart — SKU: Note20Ultra-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:66 Success: product hearted on attempt 2 — SKU: Note20Ultra-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:18 Action: clicking Favourites nav link
+[32mINFO    [0m chakshu_framework:favourites_page.py:45 Check: favourites count = 3
+[32mINFO    [0m chakshu_framework:favourites_page.py:76 Action: removing product from favourites — SKU: infocardiphone11Pro.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:80 Success: product removed from favourites — SKU: infocardiphone11Pro.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:45 Check: favourites count = 2
+[32mINFO    [0m chakshu_framework:favourites_page.py:85 Action: adding product to cart — SKU: Note20Ultra-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:89 Success: Add to cart clicked — SKU: Note20Ultra-device-info.png
+[32mINFO    [0m chakshu_framework:favourites_page.py:92 Check: verifying cart contains — 'Galaxy Note 20 Ultra'
+[32mINFO    [0m chakshu_framework:conftest.py:58 >>> END:   test_favourites_happy_path[chromium]
+[32mINFO    [0m chakshu_framework:conftest.py:43 ============================================================
+[32mINFO    [0m chakshu_framework:conftest.py:44 Test session ended
+[32mINFO    [0m chakshu_framework:conftest.py:45 ============================================================

@@ -1,0 +1,30 @@
+[2026-04-01 19:23:25] [INFO] ============================================================
+[2026-04-01 19:23:25] [INFO] Test session started — module: test_favourites
+[2026-04-01 19:23:25] [INFO] Base URL: https://bstackdemo.com/
+[2026-04-01 19:23:25] [INFO] ============================================================
+[2026-04-01 19:23:28] [INFO] >>> START: test_favourites_happy_path[chromium]
+[2026-04-01 19:23:31] [INFO] Action: clicking Favourites nav link
+[2026-04-01 19:23:32] [INFO] Check: looking for 0 products message on favourites page
+[2026-04-01 19:23:32] [INFO] Action: navigating back to previous page
+[2026-04-01 19:23:32] [INFO] Wait: page loaded, waiting for first product card to be visible
+[2026-04-01 19:23:32] [INFO] Action: adding product to favourites — SKU: infocardiphone11Pro.png
+[2026-04-01 19:23:32] [INFO] Attempt 1: clicking heart — SKU: infocardiphone11Pro.png
+[2026-04-01 19:23:32] [INFO] Success: product hearted on attempt 2 — SKU: infocardiphone11Pro.png
+[2026-04-01 19:23:33] [INFO] Action: adding product to favourites — SKU: Note20-device-info.png
+[2026-04-01 19:23:33] [INFO] Attempt 1: clicking heart — SKU: Note20-device-info.png
+[2026-04-01 19:23:34] [INFO] Success: product hearted on attempt 2 — SKU: Note20-device-info.png
+[2026-04-01 19:23:35] [INFO] Action: adding product to favourites — SKU: Note20Ultra-device-info.png
+[2026-04-01 19:23:35] [INFO] Attempt 1: clicking heart — SKU: Note20Ultra-device-info.png
+[2026-04-01 19:23:35] [INFO] Success: product hearted on attempt 2 — SKU: Note20Ultra-device-info.png
+[2026-04-01 19:23:36] [INFO] Action: clicking Favourites nav link
+[2026-04-01 19:23:37] [INFO] Check: favourites count = 3
+[2026-04-01 19:23:37] [INFO] Action: removing product from favourites — SKU: infocardiphone11Pro.png
+[2026-04-01 19:23:37] [INFO] Success: product removed from favourites — SKU: infocardiphone11Pro.png
+[2026-04-01 19:23:37] [INFO] Check: favourites count = 2
+[2026-04-01 19:23:37] [INFO] Action: adding product to cart — SKU: Note20Ultra-device-info.png
+[2026-04-01 19:23:37] [INFO] Success: Add to cart clicked — SKU: Note20Ultra-device-info.png
+[2026-04-01 19:23:38] [INFO] Check: verifying cart contains — 'Galaxy Note 20 Ultra'
+[2026-04-01 19:23:38] [INFO] >>> END:   test_favourites_happy_path[chromium]
+[2026-04-01 19:23:38] [INFO] ============================================================
+[2026-04-01 19:23:38] [INFO] Test session ended
+[2026-04-01 19:23:38] [INFO] ============================================================
