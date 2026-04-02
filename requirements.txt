@@ -9,3 +9,4 @@ pytest-xdist  # For parallel execution (optional but recommended)
 # Environment & Utility
 python-dotenv  # To manage secrets/URLs in a .env file
 pyyaml         # If you plan to use YAML for configuration
+allure-pytest  # To generate allure reports

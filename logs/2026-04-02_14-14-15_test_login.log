@@ -1,0 +1,14 @@
+[2026-04-02 14:14:15] [INFO] ============================================================
+[2026-04-02 14:14:15] [INFO] Test session started — module: test_login
+[2026-04-02 14:14:15] [INFO] Base URL: https://bstackdemo.com/
+[2026-04-02 14:14:15] [INFO] ============================================================
+[2026-04-02 14:14:16] [INFO] >>> START: test_bstackdemo_login[chromium]
+[2026-04-02 14:14:19] [INFO] Action: clicking 'Sign In' menu link
+[2026-04-02 14:14:19] [INFO] Action: selecting username — 'demouser'
+[2026-04-02 14:14:19] [INFO] Action: selecting password option for user
+[2026-04-02 14:14:19] [INFO] Action: clicking the Login button
+[2026-04-02 14:14:19] [INFO] Check: verifying if logout link is present (login status)
+[2026-04-02 14:14:20] [INFO] >>> END:   test_bstackdemo_login[chromium]
+[2026-04-02 14:14:20] [INFO] ============================================================
+[2026-04-02 14:14:20] [INFO] Test session ended
+[2026-04-02 14:14:20] [INFO] ============================================================
