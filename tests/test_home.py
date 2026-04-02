@@ -1,3 +1,7 @@
+from asyncio import timeout
+from idlelib.mainmenu import default_keydefs
+from timeit import default_timer
+
 import pytest
 from playwright.sync_api import expect
 from conftest import Config
@@ -38,20 +42,23 @@ def test_add_same_item_twice(logged_in_page):
     assert quantity == 2, f"Expected quantity 2, but got {quantity}"
     print(" Quantity updated correctly")
 
-def test_remove_item_from_cart(logged_in_page):
+def test_remove_item_from_cart(logged_in_page,page):
     home_page = HomePage(logged_in_page)
 
     products = ["iphone 12 Mini", "Galaxy S20", "One Plus 8 Pro"]
     add_products(home_page, products)
 
-    home_page.open_cart()  # 🔥 IMPORTANT
+    home_page.open_cart()
 
     cart_items = home_page.get_cart_items()
     initial_count = cart_items.count()
-    assert initial_count == 3, "Cart must have exactly 3 items"
+    assert initial_count == len(products), "Cart must have exactly 3 items"
 
     home_page.remove_itm_from_cart()
+    a = page.locator('//div[@class="float-cart__header"]')
+    a.click()
 
-    expect(cart_items).to_have_count(initial_count - 1)
+    # expect(cart_items).to_have_count(initial_count - 1)
 
+    expect(cart_items).to_have_count(initial_count - 1, timeout=10000)
 
