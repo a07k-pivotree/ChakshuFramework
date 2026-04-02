@@ -27,29 +27,72 @@ pip install -r requirements.txt
 pytest tests/test_login.py --headed
 ```
 
-To generate fresh Allure results during the test run:
+To run a particular test file and automatically generate a timestamped Allure report:
 
-```bash
-pytest tests/test_login.py --headed --alluredir=reports/allure-results --clean-alluredir
+```powershell
+.\run_tests.bat tests\test_login.py --headed
 ```
 
-## Generate Allure Report
+This creates:
 
-Use the helper script:
+- Allure results in `reports\history\<timestamp>\allure-results`
+- Allure report in `reports\history\<timestamp>\allure-report`
+
+Example:
+
+```powershell
+.\run_tests.bat tests\test_login.py --headed
+```
+
+## Open The Latest Report
+
+```powershell
+allure open "reports\history\2026-04-02_17-42-40\allure-report"
+```
+
+If you want to check the latest timestamp first:
+
+```powershell
+Get-ChildItem reports\history -Directory | Sort-Object Name -Descending
+```
+
+## Generate A Report From Existing Results
+
+If you already have results in `reports\allure-results` and want to generate a new standalone report from them:
 
 ```powershell
 .\generate-allure-report.ps1
 ```
 
-This project uses Allure CLI `3.x`. In Allure 3, `allure generate` no longer supports `--clean`, so the script removes `reports/allure-report` before running:
+This saves the generated report under:
+
+```text
+reports\generated-reports\<timestamp>
+```
+
+## Open Older Reports
+
+To open an older saved report:
 
 ```powershell
-allure generate reports/allure-results -o reports/allure-report
+allure open "reports\history\<older-timestamp>\allure-report"
 ```
-After generating the report, it does get saved until again this above script is run and get replaced by the new report.
-To Open the report, use the command:
+
+Example:
 
 ```powershell
-allure open reports/allure-report
+allure open "reports\history\2026-04-02_17-18-56\allure-report"
 ```
-It will open the report on the local server.
+
+## What Old Reports Are Available
+
+List all saved historical runs:
+
+```powershell
+Get-ChildItem reports\history -Directory | Sort-Object Name -Descending
+```
+
+Current examples in this repo:
+
+- `2026-04-02_17-42-40`
+- `2026-04-02_17-18-56`
