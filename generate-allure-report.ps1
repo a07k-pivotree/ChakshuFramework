@@ -14,6 +14,6 @@ $reportDir = Join-Path $ReportBaseDir $timestamp
 
 New-Item -ItemType Directory -Force -Path $reportDir | Out-Null
 
-allure generate $ResultsDir -o $reportDir --clean
+allure generate $ResultsDir -o $reportDir
 
 Write-Host "Report saved to: $reportDir"

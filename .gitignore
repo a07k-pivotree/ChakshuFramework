@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+reports/*
+!reports/.gitkeep
+logs/*
+!logs/.gitkeep
