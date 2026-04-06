@@ -3,6 +3,24 @@ setlocal EnableExtensions
 
 pushd "%~dp0"
 
+set "TARGET=tests\"
+set "EXTRA_ARGS="
+
+if not "%~1"=="" (
+    set "FIRST_ARG=%~1"
+    if /i not "%FIRST_ARG:~0,1%"=="-" (
+        set "TARGET=%~1"
+        shift
+    )
+)
+
+:collect_args
+if "%~1"=="" goto args_done
+set "EXTRA_ARGS=%EXTRA_ARGS% %~1"
+shift
+goto collect_args
+
+:args_done
 for /f %%I in ('powershell -NoProfile -Command "(Get-Date).ToString(\"yyyy-MM-dd_HH-mm-ss\")"') do set "RUN_TIMESTAMP=%%I"
 
 set "RUN_ROOT=reports\history\%RUN_TIMESTAMP%"
@@ -13,7 +31,7 @@ set "PYTEST_EXIT=0"
 if not exist "%RUN_ROOT%" mkdir "%RUN_ROOT%"
 
 echo Running tests...
-pytest tests\ --alluredir="%RESULTS_DIR%" %*
+pytest "%TARGET%" --alluredir="%RESULTS_DIR%"%EXTRA_ARGS%
 set "PYTEST_EXIT=%ERRORLEVEL%"
 
 if not exist "%RESULTS_DIR%" (
@@ -25,7 +43,7 @@ if not exist "%RESULTS_DIR%" (
 
 echo.
 echo Generating Allure report...
-allure generate "%RESULTS_DIR%" -o "%REPORT_DIR%" --clean
+allure generate "%RESULTS_DIR%" -o "%REPORT_DIR%"
 if errorlevel 1 (
     set "ALLURE_EXIT=%ERRORLEVEL%"
     echo Allure report generation failed.
