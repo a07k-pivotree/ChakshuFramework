@@ -3,7 +3,7 @@ setlocal EnableExtensions
 
 pushd "%~dp0"
 
-set "TARGET=tests\"
+set "TARGET=tests"
 set "EXTRA_ARGS="
 
 if not "%~1"=="" (
