@@ -1,0 +1,40 @@
+[2026-04-02 17:12:36] [INFO] ============================================================
+[2026-04-02 17:12:36] [INFO] Test session started — module: test_home
+[2026-04-02 17:12:36] [INFO] Base URL: https://bstackdemo.com/
+[2026-04-02 17:12:36] [INFO] ============================================================
+[2026-04-02 17:12:37] [INFO] >>> START: test_empty_cart[chromium]
+[2026-04-02 17:12:44] [INFO] Action: clicking 'Sign In' menu link
+[2026-04-02 17:12:44] [INFO] Action: selecting username — 'demouser'
+[2026-04-02 17:12:45] [INFO] Action: selecting password option for user
+[2026-04-02 17:12:46] [INFO] Action: clicking the Login button
+[2026-04-02 17:12:46] [INFO] Action: opening cart
+[2026-04-02 17:12:46] [INFO] >>> END:   test_empty_cart[chromium]
+[2026-04-02 17:12:46] [INFO] >>> START: test_add_same_item_twice[chromium]
+[2026-04-02 17:12:48] [INFO] Action: clicking 'Sign In' menu link
+[2026-04-02 17:12:49] [INFO] Action: selecting username — 'demouser'
+[2026-04-02 17:12:50] [INFO] Action: selecting password option for user
+[2026-04-02 17:12:50] [INFO] Action: clicking the Login button
+[2026-04-02 17:12:50] [INFO] Action: adding product to cart
+[2026-04-02 17:12:50] [INFO] Action: closing cart
+[2026-04-02 17:12:51] [INFO] Action: adding product to cart
+[2026-04-02 17:12:51] [INFO] Action: getting item quantity
+[2026-04-02 17:12:51] [INFO] >>> END:   test_add_same_item_twice[chromium]
+[2026-04-02 17:12:51] [INFO] >>> START: test_remove_item_from_cart[chromium]
+[2026-04-02 17:12:54] [INFO] Action: clicking 'Sign In' menu link
+[2026-04-02 17:12:54] [INFO] Action: selecting username — 'demouser'
+[2026-04-02 17:12:55] [INFO] Action: selecting password option for user
+[2026-04-02 17:12:55] [INFO] Action: clicking the Login button
+[2026-04-02 17:12:55] [INFO] Action: adding product to cart
+[2026-04-02 17:12:55] [INFO] Action: closing cart
+[2026-04-02 17:12:55] [INFO] Action: adding product to cart
+[2026-04-02 17:12:55] [INFO] Action: closing cart
+[2026-04-02 17:12:55] [INFO] Action: adding product to cart
+[2026-04-02 17:12:55] [INFO] Action: closing cart
+[2026-04-02 17:12:56] [INFO] Action: opening cart
+[2026-04-02 17:12:56] [INFO] Action: getting cart items
+[2026-04-02 17:12:56] [INFO] Action: removing item from cart
+[2026-04-02 17:12:56] [INFO] Action: getting cart items
+[2026-04-02 17:12:56] [INFO] >>> END:   test_remove_item_from_cart[chromium]
+[2026-04-02 17:12:56] [INFO] ============================================================
+[2026-04-02 17:12:56] [INFO] Test session ended
+[2026-04-02 17:12:56] [INFO] ============================================================
