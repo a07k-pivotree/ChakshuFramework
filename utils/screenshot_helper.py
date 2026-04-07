@@ -1,26 +1,30 @@
 import os
 from datetime import datetime
 
+import allure
+
 
 class ScreenshotHelper:
 
     @staticmethod
     def take_validation_screenshot(page, step_name: str):
         """
-        Takes a full-page screenshot and saves it in the screenshots/validations folder.
+        Takes a full-page screenshot, saves it locally, and attaches it to Allure.
         """
-        # 1. Define the folder path and create it if it doesn't exist
         folder_path = os.path.join("screenshots", "validations")
         os.makedirs(folder_path, exist_ok=True)
 
-        # 2. Generate a clean timestamp (e.g., 2026-04-06_15-30-05)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-        # 3. Create the final file name and path
         file_name = f"{step_name}_{timestamp}.png"
         file_path = os.path.join(folder_path, file_name)
 
-        # 4. Tell Playwright to take the screenshot
         page.screenshot(path=file_path, full_page=True)
 
-        print(f"\n📸 Validation screenshot captured: {file_name}")
+        allure.attach.file(
+            source=file_path,
+            name=f"Validation - {step_name}",
+            attachment_type=allure.attachment_type.PNG,
+        )
+
+        print(f"\nValidation screenshot captured: {file_name}")
+        return file_path
