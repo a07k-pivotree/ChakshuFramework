@@ -5,3 +5,4 @@ reports/*
 logs/*
 !logs/.gitkeep
 screenshots/*
+!screenshots/.gitkeep
