@@ -1,7 +1,7 @@
 class CheckoutLocators:
     first_name_input = "#firstNameInput"
-    last_name_input = "#lastNmaeInput"
-    address_input = "#addreshLine1Input"
+    last_name_input = "#lastNameInput"
+    address_input = "#addressLine1Input"
     province_input = "#provinceInput"
     post_code_input = "#postCodeInput"
     submit_buton = "//button[contains(text(),'Submit')]"
