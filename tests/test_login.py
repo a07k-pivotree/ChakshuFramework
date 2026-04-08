@@ -2,6 +2,7 @@ from playwright.sync_api import expect
 
 from conftest import Config
 from pages.login.login_page import LoginPage
+from utils.screenshot_helper import ScreenshotHelper
 
 
 def test_bstackdemo_login(page):
@@ -19,3 +20,4 @@ def test_bstackdemo_login(page):
 
     # Validate
     expect(login_page.get_logout()).to_be_visible()
+    ScreenshotHelper.take_validation_screenshot(page, "Login_Success")

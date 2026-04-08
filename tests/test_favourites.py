@@ -14,6 +14,7 @@ from playwright.sync_api import expect
 from conftest import Config
 from pages.login.login_page import LoginPage
 from pages.favourites.favourites_page import FavouritesPage
+from utils.screenshot_helper import ScreenshotHelper
 
 # ── Test data ─────────────────────────────────────────────────────────────────
 # (display_name, data-sku attribute value)
@@ -53,9 +54,11 @@ def test_favourites_happy_path(page):
     # ── Validation A: URL ends with /favourites ───────────────────────────────
 
     expect(page).to_have_url(re.compile(r".*/favourites$"))
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_URL_Validation")
 
     # ── Validation B: 0 products shown on first visit ─────────────────────────
     expect(fav_page.get_zero_products_message()).to_be_visible()
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Empty_State")
 
     # ── Step 2: Go back to product listing ───────────────────────────────────
     fav_page.go_back()
@@ -75,6 +78,7 @@ def test_favourites_happy_path(page):
     assert actual_count == expected_count, (
         f"Expected {expected_count} products in favourites, but found {actual_count}"
     )
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Count_Match")
 
     # ── Validation 2: Remove 1 product, count should decrease by 1 ───────────
     remove_name, remove_sku = PRODUCT_TO_REMOVE
@@ -86,6 +90,7 @@ def test_favourites_happy_path(page):
         f"After removing '{remove_name}', expected {expected_count - 1} products "
         f"but found {updated_count}"
     )
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Remove_Item")
 
     # ── Validation 3: Add a product to cart, confirm it appears in cart ───────
     cart_name, cart_sku = PRODUCT_TO_CART
@@ -93,3 +98,4 @@ def test_favourites_happy_path(page):
     page.wait_for_timeout(500)  # wait for cart sidebar to update
 
     expect(fav_page.get_cart_item_title(cart_name)).to_be_visible()
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Add_To_Cart")

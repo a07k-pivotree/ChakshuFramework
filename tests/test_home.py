@@ -10,6 +10,7 @@ from pages.home.locator_home_page import HomeLocators
 from pages.login import login_page
 from pages.login.login_page import LoginPage
 from utils.pagination_helper import add_products
+from utils.screenshot_helper import ScreenshotHelper
 
 
 @pytest.fixture
@@ -29,6 +30,7 @@ def test_empty_cart(logged_in_page):
     home_page.open_cart()
     buy_button = logged_in_page.locator(HomeLocators.buy_button)
     expect(buy_button).not_to_have_text("Check out")
+    ScreenshotHelper.take_validation_screenshot(logged_in_page, "Empty_Cart_Validation")
     print("Empty cart test passed")
 
 def test_add_same_item_twice(logged_in_page):
@@ -40,6 +42,7 @@ def test_add_same_item_twice(logged_in_page):
     home_page .add_product_to_cart("iphone 12 Mini")
     quantity = home_page.get_item_quantity()
     assert quantity == 2, f"Expected quantity 2, but got {quantity}"
+    ScreenshotHelper.take_validation_screenshot(logged_in_page, "Add_Same_Item_Twice")
     print(" Quantity updated correctly")
 
 def test_remove_item_from_cart(logged_in_page,page):
@@ -61,4 +64,5 @@ def test_remove_item_from_cart(logged_in_page,page):
     # expect(cart_items).to_have_count(initial_count - 1)
 
     expect(cart_items).to_have_count(initial_count - 1, timeout=10000)
+    ScreenshotHelper.take_validation_screenshot(page, "Remove_Item_From_Cart")
 
