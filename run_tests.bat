@@ -5,6 +5,7 @@ pushd "%~dp0"
 
 set "TARGET=tests"
 set "EXTRA_ARGS="
+set "PYTHON_CMD="
 
 if not "%~1"=="" (
     set "FIRST_ARG=%~1"
@@ -21,6 +22,12 @@ shift
 goto collect_args
 
 :args_done
+if exist ".venv\Scripts\python.exe" (
+    set "PYTHON_CMD=.venv\Scripts\python.exe"
+) else (
+    set "PYTHON_CMD=python"
+)
+
 for /f %%I in ('powershell -NoProfile -Command "(Get-Date).ToString(\"yyyy-MM-dd_HH-mm-ss\")"') do set "RUN_TIMESTAMP=%%I"
 
 set "RUN_ROOT=reports\history\%RUN_TIMESTAMP%"
@@ -31,7 +38,7 @@ set "PYTEST_EXIT=0"
 if not exist "%RUN_ROOT%" mkdir "%RUN_ROOT%"
 
 echo Running tests...
-pytest "%TARGET%" --alluredir="%RESULTS_DIR%"%EXTRA_ARGS%
+"%PYTHON_CMD%" -m pytest "%TARGET%" --alluredir="%RESULTS_DIR%"%EXTRA_ARGS%
 set "PYTEST_EXIT=%ERRORLEVEL%"
 
 if not exist "%RESULTS_DIR%" (
