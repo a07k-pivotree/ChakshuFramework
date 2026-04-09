@@ -6,3 +6,4 @@ logs/*
 !logs/.gitkeep
 screenshots/*
 !screenshots/.gitkeep
+#data/~$*.xlsx

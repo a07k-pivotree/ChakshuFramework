@@ -12,3 +12,5 @@ pyyaml         # If you plan to use YAML for configuration
 allure-pytest  # To generate allure reports
 allure-python-commons
 playwright
+openpyxl       # Reads test data from Excel workbook
+openpyxl
