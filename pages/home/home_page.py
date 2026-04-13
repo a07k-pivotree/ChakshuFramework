@@ -1,3 +1,5 @@
+from playwright.sync_api import expect
+
 from pages.home.locator_home_page import HomeLocators
 from utils.logger import get_logger
 
@@ -39,3 +41,10 @@ class HomePage:
         logger.info("Action: getting item quantity")
         quantity_text = self.page.locator(HomeLocators.item_quantity_text).inner_text()
         return int(quantity_text.split(":")[-1].strip())
+
+    def validate_product_details(self, product):
+        logger.info(f"Validation: checking website data for product '{product.product_name}'")
+        product_card = self.page.locator(HomeLocators.product_card_by_sku(product.sku))
+        expect(product_card).to_be_visible()
+        expect(product_card).to_contain_text(product.product_name)
+        expect(product_card).to_contain_text(product.expected_price)

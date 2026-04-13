@@ -1,95 +1,75 @@
-# Test: Favourites section — Happy Path
-#
-# Flow:
-#   Login (if not already) → validate /favourites URL + 0 products
-#   → go back → add 4 products to favourites
-#   → open favourites → validate count
-#   → remove 1 product → validate count updated
-#   → add 1 product to cart → validate in cart
-
-import pytest
 import re
+
 from playwright.sync_api import expect
 
 from conftest import Config
-from pages.login.login_page import LoginPage
 from pages.favourites.favourites_page import FavouritesPage
-
-# ── Test data ─────────────────────────────────────────────────────────────────
-# (display_name, data-sku attribute value)
-# Inspect each div.shelf-item's data-sku on bstackdemo.com to confirm these values
-PRODUCTS = [
-    #("iPhone 11",           "iPhone11-device-info.png"),
-    ("iPhone 11 Pro",       "infocardiphone11Pro.png"),
-    ("Galaxy Note 20",      "Note20-device-info.png"),
-    ("Galaxy Note 20 Ultra","Note20Ultra-device-info.png"),
-]
-
-# Product we will remove from favourites in validation step
-PRODUCT_TO_REMOVE = PRODUCTS[0]   # iPhone 11
-
-# Product we will add to cart in validation step
-PRODUCT_TO_CART = PRODUCTS[2]     # Galaxy Note 20 Ultra
+from pages.home.home_page import HomePage
+from pages.login.login_page import LoginPage
+from utils.screenshot_helper import ScreenshotHelper
 
 
-def test_favourites_happy_path(page):
-
-    # ── Step 0: Navigate + Login ──────────────────────────────────────────────
+def test_favourites_happy_path(page, login_data, product_data):
     page.goto(Config.BASE_URL)
     login_page = LoginPage(page)
 
-    # If the sign-in menu is visible, we are not logged in — do login
-    # If we are already logged in, this block is skipped
     if login_page.get_logout().count() == 0:
         login_page.click_sign_in_menu()
-        login_page.select_username("demouser")
-        login_page.select_password("testingisfun99")
+        login_page.select_username(login_data.username)
+        login_page.select_password(login_data.password)
         login_page.click_login()
 
-    # ── Step 1: Open Favourites ───────────────────────────────────────────────
     fav_page = FavouritesPage(page)
     fav_page.click_favourites_nav()
 
-    # ── Validation A: URL ends with /favourites ───────────────────────────────
-
     expect(page).to_have_url(re.compile(r".*/favourites$"))
-
-    # ── Validation B: 0 products shown on first visit ─────────────────────────
     expect(fav_page.get_zero_products_message()).to_be_visible()
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Empty_State")
 
-    # ── Step 2: Go back to product listing ───────────────────────────────────
     fav_page.go_back()
+    home_page = HomePage(page)
 
-    # ── Step 3: Add all 4 products to favourites ──────────────────────────────
-    for product_name, sku in PRODUCTS:
-        fav_page.add_to_favourites(sku)
-        # Small pause so the UI registers the heart toggle before next click
-        page.wait_for_timeout(1000)
+    for product in product_data:
+        home_page.validate_product_details(product)
+        fav_page.add_to_favourites(product.sku)
+        page.wait_for_timeout(500)
 
-    # ── Step 4: Open Favourites again ────────────────────────────────────────
     fav_page.click_favourites_nav()
 
-    # ── Validation 1: Count of products matches what we added ─────────────────
+    actual_titles = fav_page.get_all_favourite_titles()
     actual_count = fav_page.get_favourites_count()
-    expected_count = len(PRODUCTS)
+    expected_titles = [product.product_name for product in product_data]
+    expected_count = len(product_data)
+
     assert actual_count == expected_count, (
         f"Expected {expected_count} products in favourites, but found {actual_count}"
     )
+    assert set(actual_titles) == set(expected_titles), (
+        f"Favourite titles did not match Excel data. Expected {expected_titles}, found {actual_titles}"
+    )
 
-    # ── Validation 2: Remove 1 product, count should decrease by 1 ───────────
-    remove_name, remove_sku = PRODUCT_TO_REMOVE
-    fav_page.remove_from_favourites(remove_sku)
-    page.wait_for_timeout(500)  # wait for DOM to update after removal
+    cards_text = fav_page.get_all_favourite_card_texts()
+    for product in product_data:
+        assert any(
+            product.product_name in card_text and product.expected_price in card_text
+            for card_text in cards_text
+        ), f"Favourites page did not match Excel data for '{product.product_name}'"
+
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Count_Match")
+
+    product_to_remove = product_data[0]
+    fav_page.remove_from_favourites(product_to_remove.sku)
+    page.wait_for_timeout(500)
 
     updated_count = fav_page.get_favourites_count()
     assert updated_count == expected_count - 1, (
-        f"After removing '{remove_name}', expected {expected_count - 1} products "
+        f"After removing '{product_to_remove.product_name}', expected {expected_count - 1} products "
         f"but found {updated_count}"
     )
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Remove_Item")
 
-    # ── Validation 3: Add a product to cart, confirm it appears in cart ───────
-    cart_name, cart_sku = PRODUCT_TO_CART
-    fav_page.add_product_to_cart(cart_sku)
-    page.wait_for_timeout(500)  # wait for cart sidebar to update
-
-    expect(fav_page.get_cart_item_title(cart_name)).to_be_visible()
+    product_to_cart = product_data[2]
+    fav_page.add_product_to_cart(product_to_cart.sku)
+    page.wait_for_timeout(500)
+    expect(fav_page.get_cart_item_title(product_to_cart.product_name)).to_be_visible()
+    ScreenshotHelper.take_validation_screenshot(page, "Favourites_Add_To_Cart")

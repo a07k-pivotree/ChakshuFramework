@@ -9,3 +9,7 @@ class HomeLocators:
     @staticmethod
     def add_to_cart_btn(product_name):
         return f".shelf-item:has-text('{product_name}') >> text=Add to cart"
+
+    @staticmethod
+    def product_card_by_sku(sku):
+        return f"div.shelf-item[data-sku='{sku}']"

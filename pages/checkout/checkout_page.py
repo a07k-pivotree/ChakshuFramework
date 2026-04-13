@@ -58,3 +58,9 @@ class CheckoutPage:
         total_text = self.get_total_displayed_text()
         total_displayed = float(total_text.replace("$", "").strip())
         return round(total_displayed, 2)
+
+    def get_checkout_item_texts(self):
+        logger.info("Action: reading checkout item summary text")
+        cart_items = self.get_cart_items()
+        cart_items.first.wait_for(state="visible")
+        return [cart_items.nth(index).inner_text().strip() for index in range(cart_items.count())]

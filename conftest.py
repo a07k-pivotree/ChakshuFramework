@@ -7,6 +7,7 @@ import allure
 import pytest
 from datetime import datetime
 from dotenv import load_dotenv
+from utils.excel_reader import ExcelDataReader
 from utils.logger import setup_logger, get_logger
 
 load_dotenv()
@@ -14,6 +15,26 @@ load_dotenv()
 
 class Config:
     BASE_URL = os.getenv("BASE_URL")
+
+
+@pytest.fixture(scope="session")
+def excel_data_reader():
+    return ExcelDataReader()
+
+
+@pytest.fixture(scope="session")
+def login_data(excel_data_reader):
+    return excel_data_reader.get_login_data()
+
+
+@pytest.fixture(scope="session")
+def product_data(excel_data_reader):
+    return excel_data_reader.get_products()
+
+
+@pytest.fixture(scope="session")
+def cart_products(excel_data_reader):
+    return excel_data_reader.get_products(limit=3)
 
 
 # ── Session-scoped: runs ONCE for the entire pytest session ───────────────────
