@@ -21,6 +21,65 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+## Docker Quick Concept
+
+- Docker image: a packaged snapshot of your test environment.
+- Docker container: a running instance created from that image.
+- `docker exec ...` works only when a container is already running.
+
+## Run With Docker
+
+### Prerequisite
+
+- Confirm a container is running before using `docker exec`:
+
+```bash
+docker ps
+```
+
+### User Setup
+
+```bash
+# Step 1 - clone your repo
+git clone https://github.com/a07k-pivotree/ChakshuFramework.git
+cd ChakshuFramework
+
+# Step 2 - build image
+docker build -t chakshu-qa .
+```
+
+### Option A: One-shot test run
+
+```bash
+docker run --rm -v "${PWD}/reports:/app/reports" chakshu-qa
+```
+
+### Option B: Keep container running, then run tests with docker exec
+
+```bash
+#open the docker desktop first
+# Start long-running container
+docker run -d --name chakshu-qa-dev -v "${PWD}:/app" chakshu-qa tail -f /dev/null
+
+# Run specific tests inside the running container
+docker exec -it chakshu-qa-dev pytest tests/test_checkout.py
+docker exec -it chakshu-qa-dev pytest tests/test_login.py -q
+docker exec -it chakshu-qa-dev pytest tests/ -q
+```
+
+To stop or remove the dev container:
+
+```bash
+docker stop chakshu-qa-dev
+docker rm chakshu-qa-dev
+```
+
+To start the existing container:
+
+```bash
+docker start chakshu-qa-dev
+```
+
 ## Run Tests
 
 ```bash
@@ -96,3 +155,10 @@ Current examples in this repo:
 
 - `2026-04-02_17-42-40`
 - `2026-04-02_17-18-56`
+
+## Docker vs Local Usage
+
+- Docker-only users can keep running tests in Docker without reinstalling dependencies each time.
+- Host commands like `pytest tests\test_checkout.py --headed` and `allure open ...` require local setup (venv + requirements + Allure CLI).
+- In Docker, use Linux-style paths in pytest commands (`tests/test_checkout.py`).
+- Headed mode in Docker usually needs extra GUI/X11 configuration.
